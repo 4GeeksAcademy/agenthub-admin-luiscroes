@@ -1,41 +1,49 @@
-# HTML Hello
+# AgentHub · Panel de administración (prototipo)
 
-The most basic boilerplate for any 4Geeks Academy student, start your very first website from scratch.
+Prototipo HTML del panel de administración interno de **AgentHub**, una plataforma SaaS donde las empresas alquilan agentes de IA equipados con *skills*.
 
-> There is a video tutorial on [how to use this template to create your very first website here](https://youtu.be/dfbDCMu_p-0).
+Proyecto construido con el enfoque **Vision to spec**: primero la especificación, después el código.
 
-## What to do next?
+## Cómo verlo
 
-Create an `index.html` file with the [basic HTML structure](http://4geeks.com/lesson/what-is-html-learn-html#page-structure) and see it live by running a web-server using the following command:
+Abre `index.html` en el navegador, o ejecuta un servidor local:
 
 ```bash
-$ pip3 install flask && python3 server.py
+python3 -m http.server 8000
 ```
 
-- You can create as many HTML files as you want.
-- You can also create CSS files and import them into your website using a `<link>` tag placed between the `<head></head>` tags, like this:
+y visita `http://localhost:8000`.
 
-```html
-<head>
-  ...
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  ...
-</head>
-```
+## Archivos
 
-- If you want to use Tailwind CSS, add it optionally via the official Tailwind CSS v4 CDN inside the same `<head>`:
+| Archivo | Contenido |
+|---|---|
+| `SPECS.md` | Especificación completa: producto, stack, datos de referencia, 4 specs por sección, inventario de componentes y 21 criterios de aceptación. Commiteado **antes** de cualquier HTML. |
+| `index.html` | Estructura semántica, contenido hardcodeado y estilos Tailwind (CDN). |
+| `app.js` | Interacciones en JavaScript vanilla: navegación, dropdowns ⋮, modales, skills colapsables y modo oscuro. |
+| `docs/stitch/` | Propuesta visual generada en Google Stitch a partir de `SPECS.md` (solo referencia de diseño). |
 
-```html
-<head>
-  ...
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  ...
-</head>
-```
+## Stack
 
-### Contributors
+HTML5 semántico · Tailwind CSS v3 vía CDN (`darkMode: 'class'`) · JavaScript vanilla. Sin frameworks, sin build, sin CSS propio, sin atributos `style`.
 
-This template was built as part of the [Full Stack Developer course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer) at [4Geeks Academy Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and [many other contributors](https://github.com/4GeeksAcademy/html-hello/graphs/contributors).
+## Secciones
 
-You can find other templates and resources like this at the [school's GitHub page](https://github.com/4geeksacademy/).
+1. **Dashboard**: 4 tarjetas de métricas, placeholder de actividad semanal y últimos errores.
+2. **Usuarios**: tabla con dropdown ⋮ (Ver detalle en modal, Eliminar).
+3. **Agentes**: tarjetas con skills colapsables (transición suave) y modal "Configurar" con el prompt de sistema editable.
+4. **Skills**: explicación de qué es una skill y catálogo con número de agentes por skill.
+5. **Contrataciones**: tabla de contratos y modal con desglose de skills y precios.
+6. **Log de errores**: badges de gravedad con código de color, modal con traza completa y "Marcar como resuelto".
+
+Toggle de modo claro/oscuro en la barra superior: se mantiene al cambiar de sección y al recargar.
+
+## Proceso (historial de Git)
+
+1. `SPECS.md`, la especificación.
+2. Propuesta visual de Google Stitch, como referencia.
+3. HTML: estructura, contenido y estilo (Algoritmo del Pintor).
+4. JS: interacciones.
+5. Ajuste de `SPECS.md` tras revisar el prototipo.
+
+Todos los datos son ficticios y consistentes entre secciones: los agentes Atlas, Nova, Lexa, Orion, Pixel y Sage aparecen en Agentes, Contrataciones y Log de errores.
