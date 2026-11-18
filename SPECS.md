@@ -22,7 +22,7 @@
 | Lenguajes | HTML5 semántico + JavaScript **vanilla** (ES2020). |
 | Estilos | **Tailwind CSS v3 vía CDN** (`https://cdn.tailwindcss.com`) con `tailwind.config = { darkMode: 'class' }`. |
 | Prohibido | Frameworks (React, Vue…), jQuery, herramientas de build, archivos `.css` propios, atributos `style="…"` en línea. |
-| Archivos | `index.html` (estructura + datos visibles) y `app.js` (comportamiento + datos de detalle para modales). |
+| Archivos | `index.html` (estructura + datos visibles) y `app.js` (comportamiento + datos de detalle para modales). Ambos en la raíz. |
 | Navegación | Una sola página. Cada sección es un `<section id="…">`; la barra lateral muestra una sección y oculta las demás (hash: `#dashboard`, `#usuarios`, `#agentes`, `#skills`, `#contrataciones`, `#errores`). |
 | Idioma | Interfaz en español. Moneda en euros con formato `1.234,56 €`. Fechas `dd/mm/aaaa`. |
 | Viewports | Escritorio (≥ 1024 px) y tablet (768–1023 px). En tablet la barra lateral se colapsa a solo iconos. |
@@ -134,7 +134,7 @@ Cada error tiene una **traza completa** (5–8 líneas tipo stack trace) definid
 
 ### 6.2 Gestión de usuarios (`#usuarios`)
 1. **Tabla** (`<table>` con `<thead>`/`<tbody>`) dentro de una tarjeta con título "Usuarios registrados" y contador "6 usuarios". Columnas: Nombre (avatar con iniciales + nombre + empresa en gris debajo), Email, Plan (badge neutro: Starter/Pro/Enterprise), Estado (badge de color §3), Acciones.
-2. **Dropdown ⋮ por fila** en la columna Acciones: botón de icono `⋮` con `aria-label="Acciones para {nombre}"` y `aria-expanded`. Al pulsar abre un menú flotante (alineado a la derecha, `shadow-lg`, `rounded-lg`) con: "Ver detalle" (icono ojo) y "Eliminar" (icono papelera, texto rojo). Solo un dropdown abierto a la vez.
+2. **Dropdown ⋮ por fila** en la columna Acciones: botón de icono `⋮` con `aria-label="Acciones para {nombre}"` y `aria-expanded`. Al pulsar abre un menú flotante que se despliega **a la izquierda del botón** (para no tapar el ⋮ de la fila siguiente; `shadow-lg`, `rounded-lg`) con: "Ver detalle" (icono ojo) y "Eliminar" (icono papelera, texto rojo). Solo un dropdown abierto a la vez.
 3. **Modal "Ver detalle"** con overlay oscuro semitransparente y desenfoque (`bg-slate-900/60 backdrop-blur-sm`). Contenido: avatar grande con iniciales, nombre, empresa, y una lista de definiciones (`<dl>`) con: Email, Plan, Estado (badge), Fecha de alta, Agentes que posee (nombres de §5.3) y Contratos (IDs de §5.4). Botón "Cerrar" (y una ✕ arriba a la derecha).
 4. **Eliminar:** quita la fila de la tabla con una transición de opacidad (300 ms), actualiza el contador "N usuarios" y muestra un aviso temporal (toast, 3 s) "Usuario eliminado (solo en el prototipo)".
 
@@ -176,7 +176,7 @@ Cada error tiene una **traza completa** (5–8 líneas tipo stack trace) definid
 | **Dropdown de acciones ⋮** | Usuarios, Agentes, Skills, Contrataciones, Errores | Botón con `aria-haspopup="menu"` y `aria-expanded`; menú `role="menu"` con `role="menuitem"`. Solo uno abierto; se cierra al elegir opción, al hacer clic fuera y con `Esc`. |
 | **Modal** | Usuarios, Agentes, Skills, Contrataciones, Errores | Un único contenedor reutilizable con overlay; título, cuerpo y pie con botones. Se cierra con botón Cerrar/✕, clic en el backdrop y `Esc`; bloquea el scroll del fondo mientras está abierto; devuelve el foco al botón que lo abrió. |
 | **Lista de skills colapsable** | Agentes | Botón "Skills (N)" + chevron; transición `grid-rows` 300 ms; colapsada por defecto. |
-| **Tabla de datos** | Usuarios, Contrataciones, Errores | `<table>` semántica con cabecera, filas con hover suave, scroll horizontal en tablet. |
+| **Tabla de datos** | Usuarios, Contrataciones, Errores | `<table>` semántica con cabecera y filas con hover suave. En tablet se ocultan columnas secundarias (`hidden lg:table-cell`) en lugar de usar scroll horizontal, porque un contenedor con scroll recortaría los menús ⋮. |
 | **Toast** | Acciones eliminar/guardar/resolver | Aviso abajo a la derecha, 3 s, `role="status"`. |
 | **Caja informativa** | Skills | Fondo `indigo-50`/`indigo-500/10`, icono "i", texto explicativo. |
 
@@ -213,7 +213,7 @@ Cada error tiene una **traza completa** (5–8 líneas tipo stack trace) definid
 18. No hay atributos `style=` ni archivos `.css` en el repositorio; todos los estilos son clases de Tailwind cargado por CDN.
 19. No se usa ningún framework ni librería JS: solo `app.js` vanilla.
 20. El HTML usa `aside`, `nav`, `header`, `main`, `section`, `table`/`thead`/`tbody`, `dialog`-like con `role="dialog"`, y botones `<button>` para todas las acciones.
-21. El layout es usable sin solaparse en 1440 px (escritorio) y 768 px (tablet): en tablet la barra lateral muestra solo iconos y las tablas hacen scroll horizontal dentro de su tarjeta.
+21. El layout es usable sin solaparse ni scroll horizontal de página en 1440 px (escritorio) y 768 px (tablet): en tablet la barra lateral muestra solo iconos y las tablas ocultan sus columnas secundarias (Email, Skills contratadas, Tipo) para caber en la tarjeta.
 
 ---
 
